@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'form.ui'
 #
-# Created: Wed Mar 18 11:29:07 2015
+# Created: Sat Mar 21 20:22:01 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,9 +27,13 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName(_fromUtf8("Form"))
         Form.setEnabled(True)
-        Form.resize(825, 336)
+        Form.resize(825, 356)
         self.gridLayout = QtGui.QGridLayout(Form)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
+        self.verticalLayout_8 = QtGui.QVBoxLayout()
+        self.verticalLayout_8.setObjectName(_fromUtf8("verticalLayout_8"))
+        self.verticalLayout_7 = QtGui.QVBoxLayout()
+        self.verticalLayout_7.setObjectName(_fromUtf8("verticalLayout_7"))
         self.verticalLayout_5 = QtGui.QVBoxLayout()
         self.verticalLayout_5.setObjectName(_fromUtf8("verticalLayout_5"))
         self.horizontalLayout = QtGui.QHBoxLayout()
@@ -66,6 +70,7 @@ class Ui_Form(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.lineEdit_2.sizePolicy().hasHeightForWidth())
         self.lineEdit_2.setSizePolicy(sizePolicy)
+        self.lineEdit_2.setReadOnly(False)
         self.lineEdit_2.setObjectName(_fromUtf8("lineEdit_2"))
         self.verticalLayout_2.addWidget(self.lineEdit_2)
         self.horizontalLayout.addLayout(self.verticalLayout_2)
@@ -89,7 +94,7 @@ class Ui_Form(object):
         self.tableWidget = QtGui.QTableWidget(Form)
         self.tableWidget.setObjectName(_fromUtf8("tableWidget"))
         self.tableWidget.setColumnCount(3)
-        self.tableWidget.setRowCount(1)
+        self.tableWidget.setRowCount(0)
         item = QtGui.QTableWidgetItem()
         self.tableWidget.setVerticalHeaderItem(0, item)
         item = QtGui.QTableWidgetItem()
@@ -105,7 +110,14 @@ class Ui_Form(object):
         item.setFlags(QtCore.Qt.ItemIsSelectable|QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsEnabled)
         self.tableWidget.setItem(0, 0, item)
         self.verticalLayout_5.addWidget(self.tableWidget)
-        self.gridLayout.addLayout(self.verticalLayout_5, 0, 0, 1, 1)
+        self.verticalLayout_7.addLayout(self.verticalLayout_5)
+        self.verticalLayout_8.addLayout(self.verticalLayout_7)
+        self.textEdit = QtGui.QTextEdit(Form)
+
+        self.textEdit.setReadOnly(True)
+        self.textEdit.setObjectName(_fromUtf8("textEdit"))
+        self.verticalLayout_8.addWidget(self.textEdit)
+        self.gridLayout.addLayout(self.verticalLayout_8, 0, 0, 1, 1)
         self.verticalLayout_6 = QtGui.QVBoxLayout()
         self.verticalLayout_6.setObjectName(_fromUtf8("verticalLayout_6"))
         self.verticalLayout_4 = QtGui.QVBoxLayout()
@@ -157,8 +169,6 @@ class Ui_Form(object):
         self.label.setText(_translate("Form", "Ф.И.О.", None))
         self.label_2.setText(_translate("Form", "Номер телефона", None))
         self.label_3.setText(_translate("Form", "Дата рождения", None))
-        item = self.tableWidget.verticalHeaderItem(0)
-        item.setText(_translate("Form", "1", None))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("Form", "Ф.И.О.", None))
         item = self.tableWidget.horizontalHeaderItem(1)

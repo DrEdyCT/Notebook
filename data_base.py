@@ -15,6 +15,7 @@ class PersonModel(object):
         if len(row_list) != 0:
             self.row_number = int(row_list[-1][0]) + 1
         else: self.row_number = 1
+
         cur.execute('SELECT * FROM notebook')
         db.commit()
 
@@ -40,6 +41,7 @@ class PersonModel(object):
             new_row_number += 1
 
         self.row_number -= 1
+        db.commit()
 
     @property
     def table_id(self):
@@ -50,3 +52,8 @@ class PersonModel(object):
         else: last_id = 0
         return last_id + 1
 
+    @property
+    def items_list(self):
+        cur.execute('SELECT * FROM notebook')
+        items = cur.fetchall()
+        return items

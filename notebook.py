@@ -1,9 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+# -*- coding: ascii -*-
 
 import sys, form
 from PyQt4 import QtGui, QtCore
+import datetime
 from data_base import PersonModel, cur
+from form import Ui_Form
 
 
 class Notebook(QtGui.QWidget, form.Ui_Form):
@@ -16,12 +19,12 @@ class Notebook(QtGui.QWidget, form.Ui_Form):
         self.connect(self.pushButton_2, QtCore.SIGNAL('clicked()'), self.delRow)
 
         self.person.createTable()
-        
+
         rows = 0
         for row in cur:
             self.tableWidget.setRowCount(rows + 1)
 
-            item = QtGui.QTableWidgetItem(str(row[1]))
+            item = QtGui.QTableWidgetItem(row[1])
             item.setFlags(QtCore.Qt.ItemIsSelectable|QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsEnabled)
             self.tableWidget.setItem(rows, 0, item)
             item = QtGui.QTableWidgetItem(row[2])
@@ -35,6 +38,7 @@ class Notebook(QtGui.QWidget, form.Ui_Form):
 
         self.tableWidget.resizeColumnsToContents()
         self.rows = rows
+        self.reminder()
 
     def inputDate(self):
         date = self.calendarWidget.selectedDate()
@@ -70,6 +74,8 @@ class Notebook(QtGui.QWidget, form.Ui_Form):
             self.tableWidget.resizeColumnsToContents()
             self.rows += 1
 
+            self.reminder()
+
     def delRow(self):
         selected = self.tableWidget.currentRow()
         if selected == -1:
@@ -77,7 +83,29 @@ class Notebook(QtGui.QWidget, form.Ui_Form):
         else:
             self.tableWidget.removeRow(selected)
             self.person.delRow(selected)
+        self.reminder()
 
+    def reminder(self):
+        items = self.person.items_list
+        if len(items) != 0:
+            rows = items[-1][-1]
+        else: rows = 0
+        n = 0; size = 0
+        text = ''
+        while n != int(rows):
+            my_date = items[n][3]
+            now_date = datetime.date.today()
+            delta = datetime.timedelta(days=1)
+            if str(my_date) == str(now_date):
+                text += u'%s сегодня справляет День Рождения\n' % items[n][1]
+                size += 20
+            elif str(now_date + delta) == str(my_date):
+                text += u'%s завтра будет справлять День Рождения\n' % items[n][1]
+                size += 20
+            n += 1
+        if size > 60: size = 60
+        self.textEdit.setMaximumSize(QtCore.QSize(16777215, size))
+        self.textEdit.setText(text)
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
