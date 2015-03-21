@@ -27,7 +27,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName(_fromUtf8("Form"))
         Form.setEnabled(True)
-        Form.resize(825, 356)
+        Form.setGeometry(300, 300, 900, 356)
         self.gridLayout = QtGui.QGridLayout(Form)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.verticalLayout_8 = QtGui.QVBoxLayout()
