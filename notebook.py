@@ -5,7 +5,7 @@
 import sys, form
 from PyQt4 import QtGui, QtCore
 import datetime
-from data_base import PersonModel, cur
+from database import PersonModel, cur
 from form import Ui_Form
 
 
@@ -45,7 +45,7 @@ class Notebook(QtGui.QWidget, form.Ui_Form):
         self.lineEdit_3.setText(str(date.toPyDate()))
 
     def saveRow(self):
-        row_id = self.person.table_id
+        row_id = self.person.tableId
 
         name = self.lineEdit.text()
         phone_number = self.lineEdit_2.text()
@@ -86,7 +86,7 @@ class Notebook(QtGui.QWidget, form.Ui_Form):
         self.reminder()
 
     def reminder(self):
-        items = self.person.items_list
+        items = self.person.itemsList
         if len(items) != 0:
             rows = items[-1][-1]
         else: rows = 0
@@ -97,11 +97,13 @@ class Notebook(QtGui.QWidget, form.Ui_Form):
             now_date = datetime.date.today()
             delta = datetime.timedelta(days=1)
             if str(my_date) == str(now_date):
-                text += u'%s сегодня справляет День Рождения\n' % items[n][1]
-                size += 20
+                if items[n][1] not in text:
+                    text += u'%s сегодня справляет День Рождения\n' % items[n][1]
+                    size += 20
             elif str(now_date + delta) == str(my_date):
-                text += u'%s завтра будет справлять День Рождения\n' % items[n][1]
-                size += 20
+                if items[n][1] not in text:
+                    text += u'%s завтра будет справлять День Рождения\n' % items[n][1]
+                    size += 20
             n += 1
         if size > 60: size = 60
         self.textEdit.setMaximumSize(QtCore.QSize(16777215, size))
